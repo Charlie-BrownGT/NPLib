@@ -1,0 +1,4 @@
+[ libNPSharcDev.so ]
+# List of selected classes
+class TSharcDevPhysics
+header TSharcDevPhysics.h
