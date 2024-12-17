@@ -1,0 +1,38 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Beam
+ Particle= 21Na
+ Energy= 86.5 MeV
+ SigmaEnergy= 1 MeV
+ SigmaX= 0 mm
+ SigmaY= 0 mm
+ SigmaThetaX= 0.0 deg
+ SigmaPhiY= 0.0 deg
+ MeanThetaX= 0 mm
+ MeanPhiY= 0 mm
+ MeanX= 0 mm
+ MeanY= 0 mm
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+TwoBodyReaction
+ Beam= 21Na
+ Target= 2H
+ Light= p
+ Heavy= 22Mg
+ ExcitationEnergyLight= 0.0 MeV
+ ExcitationEnergyHeavy= 11 MeV
+ CrossSectionPath= XS_18NeLit.txt CS
+ ShootLight= 1
+ ShootHeavy= 1
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Decay 22Mg
+ Daughter= 4He 18Ne 
+ ExcitationEnergy= 0 0
+ Threshold= 0 MeV
+ BranchingRatio= 1
+ LifeTime= 0 ns
+ DifferentialCrossSection= flat.txt CS3
+ shoot= 1 1
+
+
