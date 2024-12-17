@@ -30,13 +30,18 @@ using namespace std;
 #include "TObject.h"
 #include "TNamed.h"
 
+// C++ headers
+#include <iostream>
+#include <fstream>
+#include <sstream>
+#include <string>
+
 class TSharcDevData : public TObject {
-  //////////////////////////////////////////////////////////////
   // data members are hold into vectors in order 
   // to allow multiplicity treatment
   private: 
     // Energy
-    	vector<UShort_t>   fSharcDev_StripFront_DetectorNbr;
+    vector<UShort_t>   fSharcDev_StripFront_DetectorNbr;
 	vector<UShort_t>   fSharcDev_StripFront_StripNbr;
 	vector<Double_t>   fSharcDev_StripFront_Energy;
 	vector<Double_t>   fSharcDev_StripFront_TimeCFD;
@@ -60,27 +65,22 @@ class TSharcDevData : public TObject {
     //vector<UShort_t>   fSharcDev_T_DetectorNbr;
     //vector<Double_t>   fSharcDev_Time;
 
-
-  //////////////////////////////////////////////////////////////
   // Constructor and destructor
   public: 
     TSharcDevData();
     ~TSharcDevData();
     
-
-  //////////////////////////////////////////////////////////////
   // Inherited from TObject and overriden to avoid warnings
   public:
     void Clear();
     void Clear(const Option_t*) {};
     void Dump() const;
 
-
-  //////////////////////////////////////////////////////////////
   // Getters and Setters
   // Prefer inline declaration to avoid unnecessary called of 
   // frequently used methods
   // add //! to avoid ROOT creating dictionnary for the methods
+
   public:
     //////////////////////    SETTERS    ////////////////////////
     // Energy
@@ -127,6 +127,7 @@ class TSharcDevData : public TObject {
 		SetPAD_TimeLED(TimeLED);
 		SetPAD_Time(Time);
 	};
+
     //inline void SetEnergy(const UShort_t& DetNbr,const Double_t& Energy){
     //  fSharcDev_E_DetectorNbr.push_back(DetNbr);
     //  fSharcDev_Energy.push_back(Energy);
@@ -137,7 +138,6 @@ class TSharcDevData : public TObject {
     //  fSharcDev_T_DetectorNbr.push_back(DetNbr);     
     //  fSharcDev_Time.push_back(Time);
     //};//!
-
 
     //////////////////////    GETTERS    ////////////////////////
     // Energy
@@ -180,10 +180,7 @@ class TSharcDevData : public TObject {
     //inline Double_t Get_Time(const unsigned int &i) const 
     //  {return fSharcDev_Time[i];}//!
 
-
-  //////////////////////////////////////////////////////////////
-  // Required for ROOT dictionnary
-  ClassDef(TSharcDevData,1)  // SharcDevData structure
+	// Required for ROOT dictionnary
+	ClassDef(TSharcDevData,1)  // SharcDevData structure
 };
-
 #endif

@@ -21,25 +21,8 @@
 #include "TSharcDevPhysics.h"
 using namespace SharcDev_LOCAL;
 
-//   STL
-#include <sstream>
-#include <iostream>
-#include <cmath>
-#include <stdlib.h>
-#include <limits>
-
-//   NPL
-#include "RootInput.h"
-#include "RootOutput.h"
-#include "TAsciiFile.h"
-#include "NPOptionManager.h"
-#include "NPDetectorFactory.h"
-//   ROOT
-#include "TChain.h"
-///////////////////////////////////////////////////////////////////////////
-
 ClassImp(TSharcDevPhysics)
-  ///////////////////////////////////////////////////////////////////////////
+
 TSharcDevPhysics::TSharcDevPhysics(){
 	m_Rand= new TRandom3();
 	EventMultiplicity   = 0 ;
@@ -67,12 +50,10 @@ TSharcDevPhysics::TSharcDevPhysics(){
 	m_Take_T_Back=true;
 }
 
-///////////////////////////////////////////////////////////////////////////
 void TSharcDevPhysics::BuildSimplePhysicalEvent(){
  	BuildPhysicalEvent();
 }
 
-///////////////////////////////////////////////////////////////////////////
 void TSharcDevPhysics::BuildPhysicalEvent(){
  	PreTreat();
 	bool check_PAD = false ;
@@ -80,19 +61,20 @@ void TSharcDevPhysics::BuildPhysicalEvent(){
 	vector< TVector2 > couple = Match_Front_Back() ;
 	EventMultiplicity = couple.size();
 
-  	unsigned int size = couple.size();
-  	for(unsigned int i = 0 ; i < size ; ++i){
+  unsigned int size = couple.size();
     
-    		int N = m_PreTreatedData->GetFront_DetectorNbr(couple[i].X()) ;
+  for(unsigned int i = 0 ; i < size ; ++i){
+    
+    int N = m_PreTreatedData->GetFront_DetectorNbr(couple[i].X()) ;
 
-    		int Front = m_PreTreatedData->GetFront_StripNbr(couple[i].X()) ;
-    		int Back  = m_PreTreatedData->GetBack_StripNbr(couple[i].Y()) ;
+    int Front = m_PreTreatedData->GetFront_StripNbr(couple[i].X()) ;
+    int Back  = m_PreTreatedData->GetBack_StripNbr(couple[i].Y()) ;
 
-    		double Front_E = m_PreTreatedData->GetFront_Energy( couple[i].X() ) ;
-    		double Back_E  = m_PreTreatedData->GetBack_Energy( couple[i].Y() ) ;
+    double Front_E = m_PreTreatedData->GetFront_Energy( couple[i].X() ) ;
+    double Back_E  = m_PreTreatedData->GetBack_Energy( couple[i].Y() ) ;
 
-    		double Front_T = m_PreTreatedData->GetFront_TimeCFD( couple[i].X() ) ;
-    		double Back_T  = m_PreTreatedData->GetBack_TimeCFD ( couple[i].Y() ) ;
+    double Front_T = m_PreTreatedData->GetFront_TimeCFD( couple[i].X() ) ;
+    double Back_T  = m_PreTreatedData->GetBack_TimeCFD ( couple[i].Y() ) ;
 
     DetectorNumber.push_back(N);
     StripFront_E.push_back(Front_E);
@@ -105,12 +87,15 @@ void TSharcDevPhysics::BuildPhysicalEvent(){
     // Try to obtain Pixel Calibration
     static CalibrationManager* Cal = CalibrationManager::getInstance();
     static string name;
+
     //Store for calibration purposes
     Strip_Front_RawE.push_back(StripFront_OriginalE[couple[i].X()]);
     Strip_Back_RawE.push_back(StripBack_OriginalE[couple[i].Y()]);
+
     //Proceed for Pixel Calibration
     name = "SHARCDEV/D"+ NPL::itoa(N)+"_STRIP_FRONT"+ NPL::itoa(Front)+"_BACK"+ NPL::itoa(Back)+"_E";
     double Pixel_E = Cal->ApplyCalibration(name,StripFront_OriginalE[couple[i].X()] );
+
     if(Pixel_E != StripFront_OriginalE[couple[i].X()]){
       Strip_E.push_back(Pixel_E);
       name = "SHARCDEV/D"+ NPL::itoa(N)+"_STRIP_FRONT"+ NPL::itoa(Front)+"_BACK"+ NPL::itoa(Back)+"_DEADLAYER";
@@ -143,6 +128,7 @@ void TSharcDevPhysics::BuildPhysicalEvent(){
         check_PAD = true ;
       }
     }
+
     // default for pad
     if(!check_PAD){
       PAD_E.push_back(-1000)   ;
@@ -154,7 +140,6 @@ void TSharcDevPhysics::BuildPhysicalEvent(){
 		return;
 }
 
-///////////////////////////////////////////////////////////////////////////
 void TSharcDevPhysics::PreTreat(){
   ClearPreTreatedData();
   //   Front
@@ -181,12 +166,12 @@ void TSharcDevPhysics::PreTreat(){
       double Back_E = fStrip_Back_E(m_EventData , i);
       if( Back_E > m_StripBack_E_Threshold ){
         m_PreTreatedData->SetBack( m_EventData->GetBack_DetectorNbr(i),
-            m_EventData->GetBack_StripNbr(i),
-            Back_E,
-            m_EventData->GetBack_TimeCFD(i),
-            m_EventData->GetBack_TimeLED(i));
+        m_EventData->GetBack_StripNbr(i),
+        Back_E,
+        m_EventData->GetBack_TimeCFD(i),
+        m_EventData->GetBack_TimeLED(i));
 
-      StripBack_OriginalE.push_back( m_EventData->GetBack_Energy(i));
+        StripBack_OriginalE.push_back( m_EventData->GetBack_Energy(i));
       }
     }
   }
@@ -199,9 +184,9 @@ void TSharcDevPhysics::PreTreat(){
       double PAD_E = fPAD_E(m_EventData , i);
       if( PAD_E > m_PAD_E_Threshold ){
         m_PreTreatedData->SetPAD( m_EventData->GetPAD_DetectorNbr(i),
-            PAD_E,
-            m_EventData->GetPAD_TimeCFD(i),
-            m_EventData->GetPAD_TimeLED(i));
+        PAD_E,
+        m_EventData->GetPAD_TimeCFD(i),
+        m_EventData->GetPAD_TimeLED(i));
       }
     }
   }
@@ -211,13 +196,10 @@ void TSharcDevPhysics::PreTreat(){
   return;
 }
 
-
-///////////////////////////////////////////////////////////////////////////
 int TSharcDevPhysics :: CheckEvent(){
   return 1 ; // Regular Event
 }
 
-///////////////////////////////////////////////////////////////////////////
 vector < TVector2 > TSharcDevPhysics :: Match_Front_Back(){
   vector < TVector2 > ArrayOfGoodCouple ;
   // Prevent code from treating very high multiplicity Event
@@ -299,6 +281,7 @@ void TSharcDevPhysics::ReadAnalysisConfig(){
   asciiConfig->AppendLine("%%% ConfigSharcDev.dat %%%");
   asciiConfig->Append(FileName.c_str());
   asciiConfig->AppendLine("");
+
   // read analysis config file
   string LineBuffer,DataBuffer,whatToDo;
   while (!AnalysisConfigFile.eof()) {
@@ -364,7 +347,6 @@ void TSharcDevPhysics::ReadAnalysisConfig(){
           channel = atoi(DataBuffer.substr(8).c_str());
           *(m_BackChannelStatus[Detector-1].begin()+channel-1) = false;
           cout << "DISABLE DETECTOR " << Detector << " STRIP BACK " << channel << endl;
-
         }
 
         else if (DataBuffer.find("PAD") != string::npos) {
@@ -375,7 +357,6 @@ void TSharcDevPhysics::ReadAnalysisConfig(){
         }
 
         else cout << "Warning: detector type for SharcDev unknown!" << endl;
-
       }
 
       else if (whatToDo=="TAKE_E_FRONT") {
@@ -443,8 +424,6 @@ void TSharcDevPhysics::ReadAnalysisConfig(){
 
 }
 
-
-///////////////////////////////////////////////////////////////////////////
 void TSharcDevPhysics::Clear(){
   EventMultiplicity = 0;
 
@@ -472,11 +451,7 @@ void TSharcDevPhysics::Clear(){
   PAD_E.clear() ;
   PAD_T.clear() ;
 }
-///////////////////////////////////////////////////////////////////////////
-
 ////   Innherited from VDetector Class   ////
-
-///////////////////////////////////////////////////////////////////////////
 void TSharcDevPhysics::ReadConfiguration(NPL::InputParser parser){
   vector<NPL::InputBlock*> blocks = parser.GetAllBlocksWithToken("SharcDev");
   if(NPOptionManager::getInstance()->GetVerboseLevel())
@@ -518,26 +493,25 @@ void TSharcDevPhysics::ReadConfiguration(NPL::InputParser parser){
   InitializeStandardParameter();
   ReadAnalysisConfig();
 }
-///////////////////////////////////////////////////////////////////////////
+
 void TSharcDevPhysics::InitSpectra(){  
   m_Spectra = new TSharcDevSpectra(m_NumberOfDetector);
 }
 
-///////////////////////////////////////////////////////////////////////////
 void TSharcDevPhysics::FillSpectra(){  
   m_Spectra -> FillRawSpectra(m_EventData);
   m_Spectra -> FillPreTreatedSpectra(m_PreTreatedData);
   m_Spectra -> FillPhysicsSpectra(m_EventPhysics);
 }
-///////////////////////////////////////////////////////////////////////////
+
 void TSharcDevPhysics::CheckSpectra(){  
   m_Spectra->CheckSpectra();  
 }
-///////////////////////////////////////////////////////////////////////////
+
 void TSharcDevPhysics::ClearSpectra(){  
   // To be done
 }
-///////////////////////////////////////////////////////////////////////////
+
 map< string , TH1*> TSharcDevPhysics::GetSpectra() {
   if(m_Spectra)
     return m_Spectra->GetMapHisto();
@@ -547,11 +521,10 @@ map< string , TH1*> TSharcDevPhysics::GetSpectra() {
   }
 } 
 
-///////////////////////////////////////////////////////////////////////////
 void TSharcDevPhysics::WriteSpectra(){
   m_Spectra->WriteSpectra();
 }
-///////////////////////////////////////////////////////////////////////////
+
 void TSharcDevPhysics::AddParameterToCalibrationManager(){
   CalibrationManager* Cal = CalibrationManager::getInstance();
 
@@ -590,10 +563,8 @@ void TSharcDevPhysics::AddParameterToCalibrationManager(){
   }
 
   return;
-
 }
 
-///////////////////////////////////////////////////////////////////////////
 void TSharcDevPhysics::InitializeRootInputRaw(){
   TChain* inputChain = RootInput::getInstance()->GetChain()   ;
   inputChain->SetBranchStatus( "SharcDev" , true );
@@ -606,7 +577,6 @@ void TSharcDevPhysics::InitializeRootInputRaw(){
 
 }
 
-///////////////////////////////////////////////////////////////////////////
 void TSharcDevPhysics::InitializeRootInputPhysics(){
   TChain* inputChain = RootInput::getInstance()->GetChain();
   inputChain->SetBranchStatus( "EventMultiplicity" , true );
@@ -625,13 +595,11 @@ void TSharcDevPhysics::InitializeRootInputPhysics(){
   inputChain->SetBranchAddress( "SharcDev" , &m_EventPhysics )      ;
 }
 
-///////////////////////////////////////////////////////////////////////////
 void TSharcDevPhysics::InitializeRootOutput(){
   TTree* outputTree = RootOutput::getInstance()->GetTree();
   outputTree->Branch( "SharcDev" , "TSharcDevPhysics" , &m_EventPhysics );
 }
 
-////////////////////////////////////////////////////////////////////////////////
 /////   Specific to SharcDevArray   ////
 void TSharcDevPhysics::AddBoxDetector(double Z){
   // BOX //
@@ -690,7 +658,6 @@ void TSharcDevPhysics::AddBoxDetector(double Z){
 
   double BOX_PCB_Slot_Position2 = 0.5*BOX_PCB_Length-BOX_LeftOver2 - 0.5*BOX_PCB_Slot_Width2;
 
-  
   double A1 = BOX_Exposed_Length1*0.5 -BOX_PCB_Slot_Border1- 0.5*StripPitchFront ; 
   double B1 = BOX_DetectorSpacing1 - 0.5*BOX_PCB_Thickness;
   double Z1 = Z - BOX_Wafer_Width*0.5 + StripPitchBack*0.5 ;
@@ -750,7 +717,7 @@ void TSharcDevPhysics::AddBoxDetector(double Z){
     m_StripPositionZ.push_back( OneBoxStripPositionZ ) ;
   }
 }
-////////////////////////////////////////////////////////////////////////////////
+
 void TSharcDevPhysics::AddQQQDetector( double R,double Phi,double Z){
 
   if(Z>0)
@@ -812,12 +779,12 @@ void TSharcDevPhysics::AddQQQDetector( double R,double Phi,double Z){
 
   return;
 }
-////////////////////////////////////////////////////////////////////////////////
+
 TVector3 TSharcDevPhysics::GetDetectorNormal( const int& i) const{
   return (m_DetectorNormal[DetectorNumber[i]-1]);
 
 }
-////////////////////////////////////////////////////////////////////////////////
+
 TVector3 TSharcDevPhysics::GetPositionOfInteraction(const int& i,bool random) const{
   static TVector3 Position ;
 
@@ -842,11 +809,11 @@ TVector3 TSharcDevPhysics::GetPositionOfInteraction(const int& i,bool random) co
   return Position ;
 
 }
-////////////////////////////////////////////////////////////////////////////////
+
 double TSharcDevPhysics::GetDeadLayer(const int& i ) const{
   return DeadLayer[i];
 }
-////////////////////////////////////////////////////////////////////////////////
+
 void TSharcDevPhysics::InitializeStandardParameter()
 {
   //   Enable all channel
@@ -875,8 +842,6 @@ void TSharcDevPhysics::InitializeStandardParameter()
   return;
 }
 
-
-///////////////////////////////////////////////////////////////////////////
 namespace SharcDev_LOCAL{
   //   DSSD
   //   Front
@@ -931,16 +896,13 @@ namespace SharcDev_LOCAL{
 
 }
 
-////////////////////////////////////////////////////////////////////////////////
 //            Construct Method to be pass to the DetectorFactory              //
-////////////////////////////////////////////////////////////////////////////////
 NPL::VDetector* TSharcDevPhysics::Construct(){
   return (NPL::VDetector*) new TSharcDevPhysics();
 }
 
-////////////////////////////////////////////////////////////////////////////////
 //            Registering the construct method to the factory                 //
-////////////////////////////////////////////////////////////////////////////////
+
 extern "C"{
 class proxy_sharcdev{
   public:

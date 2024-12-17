@@ -21,22 +21,16 @@
  *****************************************************************************/
 #include "TSharcDevData.h"
 
-#include <iostream>
-#include <fstream>
-#include <sstream>
-#include <string>
 using namespace std; 
 
 ClassImp(TSharcDevData)
-//////////////////////////////////////////////////////////////////////
+
 TSharcDevData::TSharcDevData() {
 }
 
-//////////////////////////////////////////////////////////////////////
 TSharcDevData::~TSharcDevData() {
 }
 
-//////////////////////////////////////////////////////////////////////
 void TSharcDevData::Clear() {
 	fSharcDev_StripFront_DetectorNbr.clear();
 	fSharcDev_StripFront_StripNbr.clear();
@@ -66,7 +60,6 @@ void TSharcDevData::Clear() {
   //fSharcDev_Time.clear();
 }
 
-//////////////////////////////////////////////////////////////////////
 void TSharcDevData::Dump() const {
 	// Front
 	cout << "SharcDev Strip Front Mult = " << fSharcDev_StripFront_DetectorNbr.size() << endl;

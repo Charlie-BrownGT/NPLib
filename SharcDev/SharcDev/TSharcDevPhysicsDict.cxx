@@ -1,6 +1,6 @@
 // Do NOT change. Changes will be lost next time file is generated
 
-#define R__DICTIONARY_FILENAME TSharcDevDataDict
+#define R__DICTIONARY_FILENAME TSharcDevPhysicsDict
 #define R__NO_DEPRECATION
 
 /*******************************************************************/
@@ -35,7 +35,7 @@
 #include "TDataMember.h"
 
 // Header files passed as explicit arguments
-#include "TSharcDevData.h"
+#include "TSharcDevPhysics.h"
 
 // Header files passed via #pragma extra_include
 
@@ -43,121 +43,113 @@
 namespace std {} using namespace std;
 
 namespace ROOT {
-   static void *new_TSharcDevData(void *p = nullptr);
-   static void *newArray_TSharcDevData(Long_t size, void *p);
-   static void delete_TSharcDevData(void *p);
-   static void deleteArray_TSharcDevData(void *p);
-   static void destruct_TSharcDevData(void *p);
-   static void streamer_TSharcDevData(TBuffer &buf, void *obj);
+   static void *new_TSharcDevPhysics(void *p = nullptr);
+   static void *newArray_TSharcDevPhysics(Long_t size, void *p);
+   static void delete_TSharcDevPhysics(void *p);
+   static void deleteArray_TSharcDevPhysics(void *p);
+   static void destruct_TSharcDevPhysics(void *p);
+   static void streamer_TSharcDevPhysics(TBuffer &buf, void *obj);
 
    // Function generating the singleton type initializer
-   static TGenericClassInfo *GenerateInitInstanceLocal(const ::TSharcDevData*)
+   static TGenericClassInfo *GenerateInitInstanceLocal(const ::TSharcDevPhysics*)
    {
-      ::TSharcDevData *ptr = nullptr;
-      static ::TVirtualIsAProxy* isa_proxy = new ::TInstrumentedIsAProxy< ::TSharcDevData >(nullptr);
+      ::TSharcDevPhysics *ptr = nullptr;
+      static ::TVirtualIsAProxy* isa_proxy = new ::TInstrumentedIsAProxy< ::TSharcDevPhysics >(nullptr);
       static ::ROOT::TGenericClassInfo 
-         instance("TSharcDevData", ::TSharcDevData::Class_Version(), "TSharcDevData.h", 33,
-                  typeid(::TSharcDevData), ::ROOT::Internal::DefineBehavior(ptr, ptr),
-                  &::TSharcDevData::Dictionary, isa_proxy, 16,
-                  sizeof(::TSharcDevData) );
-      instance.SetNew(&new_TSharcDevData);
-      instance.SetNewArray(&newArray_TSharcDevData);
-      instance.SetDelete(&delete_TSharcDevData);
-      instance.SetDeleteArray(&deleteArray_TSharcDevData);
-      instance.SetDestructor(&destruct_TSharcDevData);
-      instance.SetStreamerFunc(&streamer_TSharcDevData);
+         instance("TSharcDevPhysics", ::TSharcDevPhysics::Class_Version(), "TSharcDevPhysics.h", 65,
+                  typeid(::TSharcDevPhysics), ::ROOT::Internal::DefineBehavior(ptr, ptr),
+                  &::TSharcDevPhysics::Dictionary, isa_proxy, 16,
+                  sizeof(::TSharcDevPhysics) );
+      instance.SetNew(&new_TSharcDevPhysics);
+      instance.SetNewArray(&newArray_TSharcDevPhysics);
+      instance.SetDelete(&delete_TSharcDevPhysics);
+      instance.SetDeleteArray(&deleteArray_TSharcDevPhysics);
+      instance.SetDestructor(&destruct_TSharcDevPhysics);
+      instance.SetStreamerFunc(&streamer_TSharcDevPhysics);
       return &instance;
    }
-   TGenericClassInfo *GenerateInitInstance(const ::TSharcDevData*)
+   TGenericClassInfo *GenerateInitInstance(const ::TSharcDevPhysics*)
    {
-      return GenerateInitInstanceLocal(static_cast<::TSharcDevData*>(nullptr));
+      return GenerateInitInstanceLocal(static_cast<::TSharcDevPhysics*>(nullptr));
    }
    // Static variable to force the class initialization
-   static ::ROOT::TGenericClassInfo *_R__UNIQUE_DICT_(Init) = GenerateInitInstanceLocal(static_cast<const ::TSharcDevData*>(nullptr)); R__UseDummy(_R__UNIQUE_DICT_(Init));
+   static ::ROOT::TGenericClassInfo *_R__UNIQUE_DICT_(Init) = GenerateInitInstanceLocal(static_cast<const ::TSharcDevPhysics*>(nullptr)); R__UseDummy(_R__UNIQUE_DICT_(Init));
 } // end of namespace ROOT
 
 //______________________________________________________________________________
-atomic_TClass_ptr TSharcDevData::fgIsA(nullptr);  // static to hold class pointer
+atomic_TClass_ptr TSharcDevPhysics::fgIsA(nullptr);  // static to hold class pointer
 
 //______________________________________________________________________________
-const char *TSharcDevData::Class_Name()
+const char *TSharcDevPhysics::Class_Name()
 {
-   return "TSharcDevData";
+   return "TSharcDevPhysics";
 }
 
 //______________________________________________________________________________
-const char *TSharcDevData::ImplFileName()
+const char *TSharcDevPhysics::ImplFileName()
 {
-   return ::ROOT::GenerateInitInstanceLocal((const ::TSharcDevData*)nullptr)->GetImplFileName();
+   return ::ROOT::GenerateInitInstanceLocal((const ::TSharcDevPhysics*)nullptr)->GetImplFileName();
 }
 
 //______________________________________________________________________________
-int TSharcDevData::ImplFileLine()
+int TSharcDevPhysics::ImplFileLine()
 {
-   return ::ROOT::GenerateInitInstanceLocal((const ::TSharcDevData*)nullptr)->GetImplFileLine();
+   return ::ROOT::GenerateInitInstanceLocal((const ::TSharcDevPhysics*)nullptr)->GetImplFileLine();
 }
 
 //______________________________________________________________________________
-TClass *TSharcDevData::Dictionary()
+TClass *TSharcDevPhysics::Dictionary()
 {
-   fgIsA = ::ROOT::GenerateInitInstanceLocal((const ::TSharcDevData*)nullptr)->GetClass();
+   fgIsA = ::ROOT::GenerateInitInstanceLocal((const ::TSharcDevPhysics*)nullptr)->GetClass();
    return fgIsA;
 }
 
 //______________________________________________________________________________
-TClass *TSharcDevData::Class()
+TClass *TSharcDevPhysics::Class()
 {
-   if (!fgIsA.load()) { R__LOCKGUARD(gInterpreterMutex); fgIsA = ::ROOT::GenerateInitInstanceLocal((const ::TSharcDevData*)nullptr)->GetClass(); }
+   if (!fgIsA.load()) { R__LOCKGUARD(gInterpreterMutex); fgIsA = ::ROOT::GenerateInitInstanceLocal((const ::TSharcDevPhysics*)nullptr)->GetClass(); }
    return fgIsA;
 }
 
 //______________________________________________________________________________
-void TSharcDevData::Streamer(TBuffer &R__b)
+void TSharcDevPhysics::Streamer(TBuffer &R__b)
 {
-   // Stream an object of class TSharcDevData.
+   // Stream an object of class TSharcDevPhysics.
 
    UInt_t R__s, R__c;
    if (R__b.IsReading()) {
       Version_t R__v = R__b.ReadVersion(&R__s, &R__c); if (R__v) { }
       TObject::Streamer(R__b);
+      //This works around a msvc bug and should be harmless on other platforms
+      typedef NPL::VDetector baseClass0;
+      baseClass0::Streamer(R__b);
+      R__b >> EventMultiplicity;
       {
-         vector<UShort_t> &R__stl =  fSharcDev_StripFront_DetectorNbr;
+         vector<int> &R__stl =  EventType;
          R__stl.clear();
          int R__i, R__n;
          R__b >> R__n;
          R__stl.reserve(R__n);
          for (R__i = 0; R__i < R__n; R__i++) {
-            unsigned short R__t;
+            int R__t;
             R__b >> R__t;
             R__stl.push_back(R__t);
          }
       }
       {
-         vector<UShort_t> &R__stl =  fSharcDev_StripFront_StripNbr;
+         vector<int> &R__stl =  DetectorNumber;
          R__stl.clear();
          int R__i, R__n;
          R__b >> R__n;
          R__stl.reserve(R__n);
          for (R__i = 0; R__i < R__n; R__i++) {
-            unsigned short R__t;
+            int R__t;
             R__b >> R__t;
             R__stl.push_back(R__t);
          }
       }
       {
-         vector<Double_t> &R__stl =  fSharcDev_StripFront_Energy;
-         R__stl.clear();
-         int R__i, R__n;
-         R__b >> R__n;
-         R__stl.reserve(R__n);
-         for (R__i = 0; R__i < R__n; R__i++) {
-            double R__t;
-            R__b >> R__t;
-            R__stl.push_back(R__t);
-         }
-      }
-      {
-         vector<Double_t> &R__stl =  fSharcDev_StripFront_TimeCFD;
+         vector<double> &R__stl =  Strip_E;
          R__stl.clear();
          int R__i, R__n;
          R__b >> R__n;
@@ -169,7 +161,7 @@ void TSharcDevData::Streamer(TBuffer &R__b)
          }
       }
       {
-         vector<Double_t> &R__stl =  fSharcDev_StripFront_TimeLED;
+         vector<double> &R__stl =  Strip_T;
          R__stl.clear();
          int R__i, R__n;
          R__b >> R__n;
@@ -181,7 +173,7 @@ void TSharcDevData::Streamer(TBuffer &R__b)
          }
       }
       {
-         vector<Double_t> &R__stl =  fSharcDev_StripFront_Time;
+         vector<double> &R__stl =  StripFront_E;
          R__stl.clear();
          int R__i, R__n;
          R__b >> R__n;
@@ -193,31 +185,7 @@ void TSharcDevData::Streamer(TBuffer &R__b)
          }
       }
       {
-         vector<UShort_t> &R__stl =  fSharcDev_StripBack_DetectorNbr;
-         R__stl.clear();
-         int R__i, R__n;
-         R__b >> R__n;
-         R__stl.reserve(R__n);
-         for (R__i = 0; R__i < R__n; R__i++) {
-            unsigned short R__t;
-            R__b >> R__t;
-            R__stl.push_back(R__t);
-         }
-      }
-      {
-         vector<UShort_t> &R__stl =  fSharcDev_StripBack_StripNbr;
-         R__stl.clear();
-         int R__i, R__n;
-         R__b >> R__n;
-         R__stl.reserve(R__n);
-         for (R__i = 0; R__i < R__n; R__i++) {
-            unsigned short R__t;
-            R__b >> R__t;
-            R__stl.push_back(R__t);
-         }
-      }
-      {
-         vector<Double_t> &R__stl =  fSharcDev_StripBack_Energy;
+         vector<double> &R__stl =  StripFront_T;
          R__stl.clear();
          int R__i, R__n;
          R__b >> R__n;
@@ -229,7 +197,7 @@ void TSharcDevData::Streamer(TBuffer &R__b)
          }
       }
       {
-         vector<Double_t> &R__stl =  fSharcDev_StripBack_TimeCFD;
+         vector<double> &R__stl =  StripBack_E;
          R__stl.clear();
          int R__i, R__n;
          R__b >> R__n;
@@ -241,7 +209,7 @@ void TSharcDevData::Streamer(TBuffer &R__b)
          }
       }
       {
-         vector<Double_t> &R__stl =  fSharcDev_StripBack_TimeLED;
+         vector<double> &R__stl =  StripBack_T;
          R__stl.clear();
          int R__i, R__n;
          R__b >> R__n;
@@ -253,7 +221,31 @@ void TSharcDevData::Streamer(TBuffer &R__b)
          }
       }
       {
-         vector<Double_t> &R__stl =  fSharcDev_StripBack_Time;
+         vector<int> &R__stl =  Strip_Front;
+         R__stl.clear();
+         int R__i, R__n;
+         R__b >> R__n;
+         R__stl.reserve(R__n);
+         for (R__i = 0; R__i < R__n; R__i++) {
+            int R__t;
+            R__b >> R__t;
+            R__stl.push_back(R__t);
+         }
+      }
+      {
+         vector<int> &R__stl =  Strip_Back;
+         R__stl.clear();
+         int R__i, R__n;
+         R__b >> R__n;
+         R__stl.reserve(R__n);
+         for (R__i = 0; R__i < R__n; R__i++) {
+            int R__t;
+            R__b >> R__t;
+            R__stl.push_back(R__t);
+         }
+      }
+      {
+         vector<double> &R__stl =  PAD_E;
          R__stl.clear();
          int R__i, R__n;
          R__b >> R__n;
@@ -265,19 +257,7 @@ void TSharcDevData::Streamer(TBuffer &R__b)
          }
       }
       {
-         vector<UShort_t> &R__stl =  fSharcDev_PAD_DetectorNbr;
-         R__stl.clear();
-         int R__i, R__n;
-         R__b >> R__n;
-         R__stl.reserve(R__n);
-         for (R__i = 0; R__i < R__n; R__i++) {
-            unsigned short R__t;
-            R__b >> R__t;
-            R__stl.push_back(R__t);
-         }
-      }
-      {
-         vector<Double_t> &R__stl =  fSharcDev_PAD_Energy;
+         vector<double> &R__stl =  PAD_T;
          R__stl.clear();
          int R__i, R__n;
          R__b >> R__n;
@@ -289,7 +269,7 @@ void TSharcDevData::Streamer(TBuffer &R__b)
          }
       }
       {
-         vector<Double_t> &R__stl =  fSharcDev_PAD_TimeCFD;
+         vector<double> &R__stl =  Strip_Front_RawE;
          R__stl.clear();
          int R__i, R__n;
          R__b >> R__n;
@@ -301,7 +281,7 @@ void TSharcDevData::Streamer(TBuffer &R__b)
          }
       }
       {
-         vector<Double_t> &R__stl =  fSharcDev_PAD_TimeLED;
+         vector<double> &R__stl =  Strip_Back_RawE;
          R__stl.clear();
          int R__i, R__n;
          R__b >> R__n;
@@ -312,204 +292,163 @@ void TSharcDevData::Streamer(TBuffer &R__b)
             R__stl.push_back(R__t);
          }
       }
-      {
-         vector<Double_t> &R__stl =  fSharcDev_PAD_Time;
-         R__stl.clear();
-         int R__i, R__n;
-         R__b >> R__n;
-         R__stl.reserve(R__n);
-         for (R__i = 0; R__i < R__n; R__i++) {
-            double R__t;
-            R__b >> R__t;
-            R__stl.push_back(R__t);
-         }
-      }
-      R__b.CheckByteCount(R__s, R__c, TSharcDevData::IsA());
+      R__b.CheckByteCount(R__s, R__c, TSharcDevPhysics::IsA());
    } else {
-      R__c = R__b.WriteVersion(TSharcDevData::IsA(), kTRUE);
+      R__c = R__b.WriteVersion(TSharcDevPhysics::IsA(), kTRUE);
       TObject::Streamer(R__b);
+      //This works around a msvc bug and should be harmless on other platforms
+      typedef NPL::VDetector baseClass0;
+      baseClass0::Streamer(R__b);
+      R__b << EventMultiplicity;
       {
-         vector<UShort_t> &R__stl =  fSharcDev_StripFront_DetectorNbr;
+         vector<int> &R__stl =  EventType;
          int R__n=int(R__stl.size());
          R__b << R__n;
          if(R__n) {
-            vector<UShort_t>::iterator R__k;
+            vector<int>::iterator R__k;
             for (R__k = R__stl.begin(); R__k != R__stl.end(); ++R__k) {
             R__b << (*R__k);
             }
          }
       }
       {
-         vector<UShort_t> &R__stl =  fSharcDev_StripFront_StripNbr;
+         vector<int> &R__stl =  DetectorNumber;
          int R__n=int(R__stl.size());
          R__b << R__n;
          if(R__n) {
-            vector<UShort_t>::iterator R__k;
+            vector<int>::iterator R__k;
             for (R__k = R__stl.begin(); R__k != R__stl.end(); ++R__k) {
             R__b << (*R__k);
             }
          }
       }
       {
-         vector<Double_t> &R__stl =  fSharcDev_StripFront_Energy;
+         vector<double> &R__stl =  Strip_E;
          int R__n=int(R__stl.size());
          R__b << R__n;
          if(R__n) {
-            vector<Double_t>::iterator R__k;
+            vector<double>::iterator R__k;
             for (R__k = R__stl.begin(); R__k != R__stl.end(); ++R__k) {
             R__b << (*R__k);
             }
          }
       }
       {
-         vector<Double_t> &R__stl =  fSharcDev_StripFront_TimeCFD;
+         vector<double> &R__stl =  Strip_T;
          int R__n=int(R__stl.size());
          R__b << R__n;
          if(R__n) {
-            vector<Double_t>::iterator R__k;
+            vector<double>::iterator R__k;
             for (R__k = R__stl.begin(); R__k != R__stl.end(); ++R__k) {
             R__b << (*R__k);
             }
          }
       }
       {
-         vector<Double_t> &R__stl =  fSharcDev_StripFront_TimeLED;
+         vector<double> &R__stl =  StripFront_E;
          int R__n=int(R__stl.size());
          R__b << R__n;
          if(R__n) {
-            vector<Double_t>::iterator R__k;
+            vector<double>::iterator R__k;
             for (R__k = R__stl.begin(); R__k != R__stl.end(); ++R__k) {
             R__b << (*R__k);
             }
          }
       }
       {
-         vector<Double_t> &R__stl =  fSharcDev_StripFront_Time;
+         vector<double> &R__stl =  StripFront_T;
          int R__n=int(R__stl.size());
          R__b << R__n;
          if(R__n) {
-            vector<Double_t>::iterator R__k;
+            vector<double>::iterator R__k;
             for (R__k = R__stl.begin(); R__k != R__stl.end(); ++R__k) {
             R__b << (*R__k);
             }
          }
       }
       {
-         vector<UShort_t> &R__stl =  fSharcDev_StripBack_DetectorNbr;
+         vector<double> &R__stl =  StripBack_E;
          int R__n=int(R__stl.size());
          R__b << R__n;
          if(R__n) {
-            vector<UShort_t>::iterator R__k;
+            vector<double>::iterator R__k;
             for (R__k = R__stl.begin(); R__k != R__stl.end(); ++R__k) {
             R__b << (*R__k);
             }
          }
       }
       {
-         vector<UShort_t> &R__stl =  fSharcDev_StripBack_StripNbr;
+         vector<double> &R__stl =  StripBack_T;
          int R__n=int(R__stl.size());
          R__b << R__n;
          if(R__n) {
-            vector<UShort_t>::iterator R__k;
+            vector<double>::iterator R__k;
             for (R__k = R__stl.begin(); R__k != R__stl.end(); ++R__k) {
             R__b << (*R__k);
             }
          }
       }
       {
-         vector<Double_t> &R__stl =  fSharcDev_StripBack_Energy;
+         vector<int> &R__stl =  Strip_Front;
          int R__n=int(R__stl.size());
          R__b << R__n;
          if(R__n) {
-            vector<Double_t>::iterator R__k;
+            vector<int>::iterator R__k;
             for (R__k = R__stl.begin(); R__k != R__stl.end(); ++R__k) {
             R__b << (*R__k);
             }
          }
       }
       {
-         vector<Double_t> &R__stl =  fSharcDev_StripBack_TimeCFD;
+         vector<int> &R__stl =  Strip_Back;
          int R__n=int(R__stl.size());
          R__b << R__n;
          if(R__n) {
-            vector<Double_t>::iterator R__k;
+            vector<int>::iterator R__k;
             for (R__k = R__stl.begin(); R__k != R__stl.end(); ++R__k) {
             R__b << (*R__k);
             }
          }
       }
       {
-         vector<Double_t> &R__stl =  fSharcDev_StripBack_TimeLED;
+         vector<double> &R__stl =  PAD_E;
          int R__n=int(R__stl.size());
          R__b << R__n;
          if(R__n) {
-            vector<Double_t>::iterator R__k;
+            vector<double>::iterator R__k;
             for (R__k = R__stl.begin(); R__k != R__stl.end(); ++R__k) {
             R__b << (*R__k);
             }
          }
       }
       {
-         vector<Double_t> &R__stl =  fSharcDev_StripBack_Time;
+         vector<double> &R__stl =  PAD_T;
          int R__n=int(R__stl.size());
          R__b << R__n;
          if(R__n) {
-            vector<Double_t>::iterator R__k;
+            vector<double>::iterator R__k;
             for (R__k = R__stl.begin(); R__k != R__stl.end(); ++R__k) {
             R__b << (*R__k);
             }
          }
       }
       {
-         vector<UShort_t> &R__stl =  fSharcDev_PAD_DetectorNbr;
+         vector<double> &R__stl =  Strip_Front_RawE;
          int R__n=int(R__stl.size());
          R__b << R__n;
          if(R__n) {
-            vector<UShort_t>::iterator R__k;
+            vector<double>::iterator R__k;
             for (R__k = R__stl.begin(); R__k != R__stl.end(); ++R__k) {
             R__b << (*R__k);
             }
          }
       }
       {
-         vector<Double_t> &R__stl =  fSharcDev_PAD_Energy;
+         vector<double> &R__stl =  Strip_Back_RawE;
          int R__n=int(R__stl.size());
          R__b << R__n;
          if(R__n) {
-            vector<Double_t>::iterator R__k;
-            for (R__k = R__stl.begin(); R__k != R__stl.end(); ++R__k) {
-            R__b << (*R__k);
-            }
-         }
-      }
-      {
-         vector<Double_t> &R__stl =  fSharcDev_PAD_TimeCFD;
-         int R__n=int(R__stl.size());
-         R__b << R__n;
-         if(R__n) {
-            vector<Double_t>::iterator R__k;
-            for (R__k = R__stl.begin(); R__k != R__stl.end(); ++R__k) {
-            R__b << (*R__k);
-            }
-         }
-      }
-      {
-         vector<Double_t> &R__stl =  fSharcDev_PAD_TimeLED;
-         int R__n=int(R__stl.size());
-         R__b << R__n;
-         if(R__n) {
-            vector<Double_t>::iterator R__k;
-            for (R__k = R__stl.begin(); R__k != R__stl.end(); ++R__k) {
-            R__b << (*R__k);
-            }
-         }
-      }
-      {
-         vector<Double_t> &R__stl =  fSharcDev_PAD_Time;
-         int R__n=int(R__stl.size());
-         R__b << R__n;
-         if(R__n) {
-            vector<Double_t>::iterator R__k;
+            vector<double>::iterator R__k;
             for (R__k = R__stl.begin(); R__k != R__stl.end(); ++R__k) {
             R__b << (*R__k);
             }
@@ -521,93 +460,93 @@ void TSharcDevData::Streamer(TBuffer &R__b)
 
 namespace ROOT {
    // Wrappers around operator new
-   static void *new_TSharcDevData(void *p) {
-      return  p ? new(p) ::TSharcDevData : new ::TSharcDevData;
+   static void *new_TSharcDevPhysics(void *p) {
+      return  p ? new(p) ::TSharcDevPhysics : new ::TSharcDevPhysics;
    }
-   static void *newArray_TSharcDevData(Long_t nElements, void *p) {
-      return p ? new(p) ::TSharcDevData[nElements] : new ::TSharcDevData[nElements];
+   static void *newArray_TSharcDevPhysics(Long_t nElements, void *p) {
+      return p ? new(p) ::TSharcDevPhysics[nElements] : new ::TSharcDevPhysics[nElements];
    }
    // Wrapper around operator delete
-   static void delete_TSharcDevData(void *p) {
-      delete (static_cast<::TSharcDevData*>(p));
+   static void delete_TSharcDevPhysics(void *p) {
+      delete (static_cast<::TSharcDevPhysics*>(p));
    }
-   static void deleteArray_TSharcDevData(void *p) {
-      delete [] (static_cast<::TSharcDevData*>(p));
+   static void deleteArray_TSharcDevPhysics(void *p) {
+      delete [] (static_cast<::TSharcDevPhysics*>(p));
    }
-   static void destruct_TSharcDevData(void *p) {
-      typedef ::TSharcDevData current_t;
+   static void destruct_TSharcDevPhysics(void *p) {
+      typedef ::TSharcDevPhysics current_t;
       (static_cast<current_t*>(p))->~current_t();
    }
    // Wrapper around a custom streamer member function.
-   static void streamer_TSharcDevData(TBuffer &buf, void *obj) {
-      ((::TSharcDevData*)obj)->::TSharcDevData::Streamer(buf);
+   static void streamer_TSharcDevPhysics(TBuffer &buf, void *obj) {
+      ((::TSharcDevPhysics*)obj)->::TSharcDevPhysics::Streamer(buf);
    }
-} // end of namespace ROOT for class ::TSharcDevData
+} // end of namespace ROOT for class ::TSharcDevPhysics
 
 namespace ROOT {
-   static TClass *vectorlEunsignedsPshortgR_Dictionary();
-   static void vectorlEunsignedsPshortgR_TClassManip(TClass*);
-   static void *new_vectorlEunsignedsPshortgR(void *p = nullptr);
-   static void *newArray_vectorlEunsignedsPshortgR(Long_t size, void *p);
-   static void delete_vectorlEunsignedsPshortgR(void *p);
-   static void deleteArray_vectorlEunsignedsPshortgR(void *p);
-   static void destruct_vectorlEunsignedsPshortgR(void *p);
+   static TClass *vectorlEintgR_Dictionary();
+   static void vectorlEintgR_TClassManip(TClass*);
+   static void *new_vectorlEintgR(void *p = nullptr);
+   static void *newArray_vectorlEintgR(Long_t size, void *p);
+   static void delete_vectorlEintgR(void *p);
+   static void deleteArray_vectorlEintgR(void *p);
+   static void destruct_vectorlEintgR(void *p);
 
    // Function generating the singleton type initializer
-   static TGenericClassInfo *GenerateInitInstanceLocal(const vector<unsigned short>*)
+   static TGenericClassInfo *GenerateInitInstanceLocal(const vector<int>*)
    {
-      vector<unsigned short> *ptr = nullptr;
-      static ::TVirtualIsAProxy* isa_proxy = new ::TIsAProxy(typeid(vector<unsigned short>));
+      vector<int> *ptr = nullptr;
+      static ::TVirtualIsAProxy* isa_proxy = new ::TIsAProxy(typeid(vector<int>));
       static ::ROOT::TGenericClassInfo 
-         instance("vector<unsigned short>", -2, "vector", 389,
-                  typeid(vector<unsigned short>), ::ROOT::Internal::DefineBehavior(ptr, ptr),
-                  &vectorlEunsignedsPshortgR_Dictionary, isa_proxy, 0,
-                  sizeof(vector<unsigned short>) );
-      instance.SetNew(&new_vectorlEunsignedsPshortgR);
-      instance.SetNewArray(&newArray_vectorlEunsignedsPshortgR);
-      instance.SetDelete(&delete_vectorlEunsignedsPshortgR);
-      instance.SetDeleteArray(&deleteArray_vectorlEunsignedsPshortgR);
-      instance.SetDestructor(&destruct_vectorlEunsignedsPshortgR);
-      instance.AdoptCollectionProxyInfo(TCollectionProxyInfo::Generate(TCollectionProxyInfo::Pushback< vector<unsigned short> >()));
+         instance("vector<int>", -2, "vector", 389,
+                  typeid(vector<int>), ::ROOT::Internal::DefineBehavior(ptr, ptr),
+                  &vectorlEintgR_Dictionary, isa_proxy, 0,
+                  sizeof(vector<int>) );
+      instance.SetNew(&new_vectorlEintgR);
+      instance.SetNewArray(&newArray_vectorlEintgR);
+      instance.SetDelete(&delete_vectorlEintgR);
+      instance.SetDeleteArray(&deleteArray_vectorlEintgR);
+      instance.SetDestructor(&destruct_vectorlEintgR);
+      instance.AdoptCollectionProxyInfo(TCollectionProxyInfo::Generate(TCollectionProxyInfo::Pushback< vector<int> >()));
 
-      instance.AdoptAlternate(::ROOT::AddClassAlternate("vector<unsigned short>","std::vector<unsigned short, std::allocator<unsigned short> >"));
+      instance.AdoptAlternate(::ROOT::AddClassAlternate("vector<int>","std::vector<int, std::allocator<int> >"));
       return &instance;
    }
    // Static variable to force the class initialization
-   static ::ROOT::TGenericClassInfo *_R__UNIQUE_DICT_(Init) = GenerateInitInstanceLocal(static_cast<const vector<unsigned short>*>(nullptr)); R__UseDummy(_R__UNIQUE_DICT_(Init));
+   static ::ROOT::TGenericClassInfo *_R__UNIQUE_DICT_(Init) = GenerateInitInstanceLocal(static_cast<const vector<int>*>(nullptr)); R__UseDummy(_R__UNIQUE_DICT_(Init));
 
    // Dictionary for non-ClassDef classes
-   static TClass *vectorlEunsignedsPshortgR_Dictionary() {
-      TClass* theClass =::ROOT::GenerateInitInstanceLocal(static_cast<const vector<unsigned short>*>(nullptr))->GetClass();
-      vectorlEunsignedsPshortgR_TClassManip(theClass);
+   static TClass *vectorlEintgR_Dictionary() {
+      TClass* theClass =::ROOT::GenerateInitInstanceLocal(static_cast<const vector<int>*>(nullptr))->GetClass();
+      vectorlEintgR_TClassManip(theClass);
    return theClass;
    }
 
-   static void vectorlEunsignedsPshortgR_TClassManip(TClass* ){
+   static void vectorlEintgR_TClassManip(TClass* ){
    }
 
 } // end of namespace ROOT
 
 namespace ROOT {
    // Wrappers around operator new
-   static void *new_vectorlEunsignedsPshortgR(void *p) {
-      return  p ? ::new(static_cast<::ROOT::Internal::TOperatorNewHelper*>(p)) vector<unsigned short> : new vector<unsigned short>;
+   static void *new_vectorlEintgR(void *p) {
+      return  p ? ::new(static_cast<::ROOT::Internal::TOperatorNewHelper*>(p)) vector<int> : new vector<int>;
    }
-   static void *newArray_vectorlEunsignedsPshortgR(Long_t nElements, void *p) {
-      return p ? ::new(static_cast<::ROOT::Internal::TOperatorNewHelper*>(p)) vector<unsigned short>[nElements] : new vector<unsigned short>[nElements];
+   static void *newArray_vectorlEintgR(Long_t nElements, void *p) {
+      return p ? ::new(static_cast<::ROOT::Internal::TOperatorNewHelper*>(p)) vector<int>[nElements] : new vector<int>[nElements];
    }
    // Wrapper around operator delete
-   static void delete_vectorlEunsignedsPshortgR(void *p) {
-      delete (static_cast<vector<unsigned short>*>(p));
+   static void delete_vectorlEintgR(void *p) {
+      delete (static_cast<vector<int>*>(p));
    }
-   static void deleteArray_vectorlEunsignedsPshortgR(void *p) {
-      delete [] (static_cast<vector<unsigned short>*>(p));
+   static void deleteArray_vectorlEintgR(void *p) {
+      delete [] (static_cast<vector<int>*>(p));
    }
-   static void destruct_vectorlEunsignedsPshortgR(void *p) {
-      typedef vector<unsigned short> current_t;
+   static void destruct_vectorlEintgR(void *p) {
+      typedef vector<int> current_t;
       (static_cast<current_t*>(p))->~current_t();
    }
-} // end of namespace ROOT for class vector<unsigned short>
+} // end of namespace ROOT for class vector<int>
 
 namespace ROOT {
    static TClass *vectorlEdoublegR_Dictionary();
@@ -675,9 +614,9 @@ namespace ROOT {
 } // end of namespace ROOT for class vector<double>
 
 namespace {
-  void TriggerDictionaryInitialization_TSharcDevDataDict_Impl() {
+  void TriggerDictionaryInitialization_TSharcDevPhysicsDict_Impl() {
     static const char* headers[] = {
-"TSharcDevData.h",
+"TSharcDevPhysics.h",
 nullptr
     };
     static const char* includePaths[] = {
@@ -692,15 +631,15 @@ nullptr
 nullptr
     };
     static const char* fwdDeclCode = R"DICTFWDDCLS(
-#line 1 "TSharcDevDataDict dictionary forward declarations' payload"
+#line 1 "TSharcDevPhysicsDict dictionary forward declarations' payload"
 #pragma clang diagnostic ignored "-Wkeyword-compat"
 #pragma clang diagnostic ignored "-Wignored-attributes"
 #pragma clang diagnostic ignored "-Wreturn-type-c-linkage"
 extern int __Cling_AutoLoading_Map;
-class __attribute__((annotate("$clingAutoload$TSharcDevData.h")))  TSharcDevData;
+class __attribute__((annotate("$clingAutoload$TSharcDevPhysics.h")))  TSharcDevPhysics;
 )DICTFWDDCLS";
     static const char* payloadCode = R"DICTPAYLOAD(
-#line 1 "TSharcDevDataDict dictionary payload"
+#line 1 "TSharcDevPhysicsDict dictionary payload"
 
 #ifndef NPMULTITHREADING
   #define NPMULTITHREADING 1
@@ -708,28 +647,28 @@ class __attribute__((annotate("$clingAutoload$TSharcDevData.h")))  TSharcDevData
 
 #define _BACKWARD_BACKWARD_WARNING_H
 // Inline headers
-#include "TSharcDevData.h"
+#include "TSharcDevPhysics.h"
 
 #undef  _BACKWARD_BACKWARD_WARNING_H
 )DICTPAYLOAD";
     static const char* classesHeaders[] = {
-"TSharcDevData", payloadCode, "@",
+"TSharcDevPhysics", payloadCode, "@",
 nullptr
 };
     static bool isInitialized = false;
     if (!isInitialized) {
-      TROOT::RegisterModule("TSharcDevDataDict",
+      TROOT::RegisterModule("TSharcDevPhysicsDict",
         headers, includePaths, payloadCode, fwdDeclCode,
-        TriggerDictionaryInitialization_TSharcDevDataDict_Impl, {}, classesHeaders, /*hasCxxModule*/false);
+        TriggerDictionaryInitialization_TSharcDevPhysicsDict_Impl, {}, classesHeaders, /*hasCxxModule*/false);
       isInitialized = true;
     }
   }
   static struct DictInit {
     DictInit() {
-      TriggerDictionaryInitialization_TSharcDevDataDict_Impl();
+      TriggerDictionaryInitialization_TSharcDevPhysicsDict_Impl();
     }
   } __TheDictionaryInitializer;
 }
-void TriggerDictionaryInitialization_TSharcDevDataDict() {
-  TriggerDictionaryInitialization_TSharcDevDataDict_Impl();
+void TriggerDictionaryInitialization_TSharcDevPhysicsDict() {
+  TriggerDictionaryInitialization_TSharcDevPhysicsDict_Impl();
 }

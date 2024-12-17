@@ -122,12 +122,14 @@ namespace SHARCDEV{
 	// QQQ //
 	// QQQ PCB
 	const G4double QQQ_PCB_Outer_Radius = 61*mm;
-	const G4double QQQ_PCB_Inner_Radius = 7.4*mm;
+	const G4double QQQ_PCB_Inner_Radius = 7.4*mm; //default
+	//const G4double QQQ_PCB_Inner_Radius = 5.5*mm;
 	const G4double QQQ_PCB_Thickness = 2*mm;
 
 	// QQQ Wafer
 	const G4double QQQ_Wafer_Outer_Radius = 42.63*mm;
-	const G4double QQQ_Wafer_Inner_Radius = 9.0*mm;
+	const G4double QQQ_Wafer_Inner_Radius = 9.0*mm; //default
+	//const G4double QQQ_Wafer_Inner_Radius = 7.1*mm;
 	const G4double QQQ_Wafer_Starting_Phi = 8*deg;
 	const G4double QQQ_Wafer_Stopping_Phi = 81*deg;
 	const G4int    QQQ_Wafer_NumberOf_RadialStrip = 24 ;

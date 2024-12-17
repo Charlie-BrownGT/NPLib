@@ -22,6 +22,13 @@
  *                                                                           *
  *****************************************************************************/
 
+//   STL
+#include <sstream>
+#include <iostream>
+#include <cmath>
+#include <stdlib.h>
+#include <limits>
+
 // C++ headers 
 #include <vector>
 #include <map>
@@ -35,33 +42,38 @@ using namespace std;
 #include "TVector2.h" 
 #include "TCanvas.h"
 #include "TRandom3.h"
+#include "TChain.h"
 // NPTool headers
 #include "TSharcDevData.h"
 #include "TSharcDevSpectra.h"
 #include "NPCalibrationManager.h"
 #include "NPVDetector.h"
 #include "NPInputParser.h"
+#include "RootInput.h"
+#include "RootOutput.h"
+#include "TAsciiFile.h"
+#include "NPOptionManager.h"
+#include "NPDetectorFactory.h"
+
+
+
 // forward declaration
 class TSharcDevSpectra;
 
 using namespace std ;
 
 class TSharcDevPhysics : public TObject, public NPL::VDetector {
-  //////////////////////////////////////////////////////////////
+
   // constructor and destructor
 public:
     TSharcDevPhysics();
     ~TSharcDevPhysics() {};
 
-
-  //////////////////////////////////////////////////////////////
   // Inherited from TObject and overriden to avoid warnings
 public: 
     void Clear();   
     void Clear(const Option_t*) {};
 
-
-  //////////////////////////////////////////////////////////////
   // data obtained after BuildPhysicalEvent() and stored in
   // output ROOT file
 public:
@@ -75,13 +87,11 @@ public:
   //void AddDetector(TVector3 POS, string shape); 
   //void AddDetector(double R, double Theta, double Phi, string shape); 
   
-  //////////////////////////////////////////////////////////////
   // methods inherited from the VDetector ABC class
 public:
   	Int_t EventMultiplicity;
   	
   	vector<int> EventType ;
-  	
   	vector<int> DetectorNumber ;
   	
   	//   DSSD
@@ -155,8 +165,6 @@ public:
     // write spectra to ROOT output file
     //void WriteSpectra();
 
-
-  //////////////////////////////////////////////////////////////
   // specific methods to SharcDev array
 public:
 	void ReadConfiguration(NPL::InputParser) ;
@@ -178,22 +186,16 @@ public:
 public:
 
 	void ClearPreTreatedData()   {m_PreTreatedData->Clear();}
-	
 	void PreTreat();
-	
 	bool IsValidChannel(const string& DetectorType, const int& telescope , const int& channel);
-	
 	void InitializeStandardParameter();
-	
 	void ReadAnalysisConfig();
-	
 	void AddBoxDetector( double Z);
 	void AddQQQDetector( double R,double Phi,double Z);
-	
 	void SetRawDataPointer(TSharcDevData* rawDataPointer) {m_EventData = rawDataPointer;}
 	
 	TSharcDevData* GetRawData()        const {return m_EventData;}
-    	TSharcDevData* GetPreTreatedData() const {return m_PreTreatedData;}
+    TSharcDevData* GetPreTreatedData() const {return m_PreTreatedData;}
     	
 	inline double GetStripPositionX( const int& N , const int& Front , const int& Back )   const{ return m_StripPositionX[N-1][Front-1][Back-1] ; }  ;
 	inline double GetStripPositionY( const int& N , const int& Front , const int& Back )   const{ return m_StripPositionY[N-1][Front-1][Back-1] ; }  ;
@@ -214,9 +216,9 @@ private:
 	unsigned int m_MaximumStripMultiplicityAllowed  ;//!
 	
 	double m_StripEnergyMatchingSigma  ; //!
-    	double m_StripEnergyMatchingNumberOfSigma  ; //!
+    double m_StripEnergyMatchingNumberOfSigma  ; //!
     	
-    	double m_StripFront_E_RAW_Threshold ;//!
+    double m_StripFront_E_RAW_Threshold ;//!
 	double m_StripFront_E_Threshold ;//!
 	double m_StripBack_E_RAW_Threshold ;//!
 	double m_StripBack_E_Threshold ;//!
@@ -269,6 +271,4 @@ namespace SharcDev_LOCAL
   	double fPAD_E(const TSharcDevData* Data, const int& i);
   	double fPAD_T(const TSharcDevData* Data, const int& i);
 }
-
 #endif
-

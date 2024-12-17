@@ -20,28 +20,14 @@
  *                                                                           *
  *****************************************************************************/
 
-// class header 
 #include "TSharcDevSpectra.h"
-#include "NPOptionManager.h"
-#include "NPGlobalSystemOfUnits.h"
-#include "NPPhysicalConstants.h"
+
 #ifdef NP_SYSTEM_OF_UNITS_H
-using namespace NPUNITS;
+  using namespace NPUNITS;
 #endif
 
-// STL
-#include <stdexcept>
-#include <iostream> 
-#include <cstdlib> 
-#include <string>
 using namespace std;
 
-// NPTool header
-#include "NPOptionManager.h"
-
-
-
-////////////////////////////////////////////////////////////////////////////////
 TSharcDevSpectra::TSharcDevSpectra(){
   SetName("SharcDev");
   fNumberOfDetector = 0;
@@ -49,9 +35,6 @@ TSharcDevSpectra::TSharcDevSpectra(){
   fStripBack=48;
 }
 
-
-
-////////////////////////////////////////////////////////////////////////////////
 TSharcDevSpectra::TSharcDevSpectra(unsigned int NumberOfDetector) {
   if(NPOptionManager::getInstance()->GetVerboseLevel()>0)
     cout << "************************************************" << endl
@@ -68,15 +51,9 @@ TSharcDevSpectra::TSharcDevSpectra(unsigned int NumberOfDetector) {
   InitPhysicsSpectra();
 }
 
-
-
-////////////////////////////////////////////////////////////////////////////////
 TSharcDevSpectra::~TSharcDevSpectra() {
 }
 
-
-
-////////////////////////////////////////////////////////////////////////////////
 void TSharcDevSpectra::InitRawSpectra() {
   static string name;
   
@@ -168,7 +145,6 @@ void TSharcDevSpectra::InitPreTreatedSpectra(){
 
 }
 
-////////////////////////////////////////////////////////////////////////////////
 void TSharcDevSpectra::InitPhysicsSpectra(){
   static string name;
   // Kinematic Plot 
@@ -187,9 +163,6 @@ void TSharcDevSpectra::InitPhysicsSpectra(){
   }
 }
 
-
-
-////////////////////////////////////////////////////////////////////////////////
 void TSharcDevSpectra::FillRawSpectra(TSharcDevData* RawData){
   static string index;
   static string name;
@@ -310,7 +283,6 @@ void TSharcDevSpectra::FillRawSpectra(TSharcDevData* RawData){
 
 }
 
-////////////////////////////////////////////////////////////////////////////////
 void TSharcDevSpectra::FillPreTreatedSpectra(TSharcDevData* PreTreatedData){
   static string index;
   static string name;
@@ -444,7 +416,6 @@ void TSharcDevSpectra::FillPreTreatedSpectra(TSharcDevData* PreTreatedData){
 
 }
 
-////////////////////////////////////////////////////////////////////////////////
 void TSharcDevSpectra::FillPhysicsSpectra(TSharcDevPhysics* Physics){
   static string index="SHARCDEV/PHY";
   static string name;
@@ -467,112 +438,3 @@ void TSharcDevSpectra::FillPhysicsSpectra(TSharcDevPhysics* Physics){
     FillSpectra(index,name,Theta,Etot);
   }
 }
-
-  	
-  	
-  //for (unsigned int i = 0; i < fNumberOfDetectors; i++) { // loop on number of detectors
-    // Energy 
-    //name = "SharcDev"+NPL::itoa(i+1)+"_ENERGY_RAW";
-    //AddHisto1D(name, name, 4096, 0, 16384, "SharcDev/RAW");
-    // Time 
-    //name = "SharcDev"+NPL::itoa(i+1)+"_TIME_RAW";
-    //AddHisto1D(name, name, 4096, 0, 16384, "SharcDev/RAW");
-  //} // end loop on number of detectors
-//}
-
-
-/*
-////////////////////////////////////////////////////////////////////////////////
-void TSharcDevSpectra::InitPreTreatedSpectra() {
-  static string name;
-  for (unsigned int i = 0; i < fNumberOfDetectors; i++) { // loop on number of detectors
-    // Energy 
-    name = "SharcDev"+NPL::itoa(i+1)+"_ENERGY_CAL";
-    AddHisto1D(name, name, 500, 0, 25, "SharcDev/CAL");
-    // Time
-    name = "SharcDev"+NPL::itoa(i+1)+"_TIME_CAL";
-    AddHisto1D(name, name, 500, 0, 25, "SharcDev/CAL");
-
-  
-  }  // end loop on number of detectors
-}
-
-
-
-////////////////////////////////////////////////////////////////////////////////
-void TSharcDevSpectra::InitPhysicsSpectra() {
-  static string name;
-  // Kinematic Plot 
-  name = "SharcDev_ENERGY_TIME";
-  AddHisto2D(name, name, 500, 0, 500, 500, 0, 50, "SharcDev/PHY");
-}
-
-
-
-////////////////////////////////////////////////////////////////////////////////
-void TSharcDevSpectra::FillRawSpectra(TSharcDevData* RawData) {
-  static string name;
-  static string family;
-
-  // Energy 
-  unsigned int sizeE = RawData->GetMultEnergy();
-  for (unsigned int i = 0; i < sizeE; i++) {
-    name = "SharcDev"+NPL::itoa(RawData->GetE_DetectorNbr(i))+"_ENERGY_RAW";
-    family = "SharcDev/RAW";
-
-    FillSpectra(family,name,RawData->Get_Energy(i));
-  }
-
-  // Time
-  unsigned int sizeT = RawData->GetMultTime();
-  for (unsigned int i = 0; i < sizeT; i++) {
-    name = "SharcDev"+NPL::itoa(RawData->GetT_DetectorNbr(i))+"_TIME_RAW";
-    family = "SharcDev/RAW";
-
-    FillSpectra(family,name,RawData->Get_Time(i));
-  }
-}
-
-
-
-////////////////////////////////////////////////////////////////////////////////
-void TSharcDevSpectra::FillPreTreatedSpectra(TSharcDevData* PreTreatedData) {
-  static string name;
-  static string family;
-  
-  // Energy 
-  unsigned int sizeE = PreTreatedData->GetMultEnergy();
-  for (unsigned int i = 0; i < sizeE; i++) {
-    name = "SharcDev"+NPL::itoa(PreTreatedData->GetE_DetectorNbr(i))+"_ENERGY_CAL";
-    family = "SharcDev/CAL";
-
-    FillSpectra(family,name,PreTreatedData->Get_Energy(i));
-  }
-
-  // Time
-  unsigned int sizeT = PreTreatedData->GetMultTime();
-  for (unsigned int i = 0; i < sizeT; i++) {
-    name = "SharcDev"+NPL::itoa(PreTreatedData->GetT_DetectorNbr(i))+"_TIME_CAL";
-    family = "SharcDev/CAL";
-
-    FillSpectra(family,name,PreTreatedData->Get_Time(i));
-  }
-}
-
-
-
-////////////////////////////////////////////////////////////////////////////////
-void TSharcDevSpectra::FillPhysicsSpectra(TSharcDevPhysics* Physics) {
-  static string name;
-  static string family;
-  family= "SharcDev/PHY";
-
-  // Energy vs time
-  unsigned int sizeE = Physics->Energy.size();
-  for(unsigned int i = 0 ; i < sizeE ; i++){
-    name = "SharcDev_ENERGY_TIME";
-    FillSpectra(family,name,Physics->Energy[i],Physics->Time[i]);
-  }
-}
-*/
-

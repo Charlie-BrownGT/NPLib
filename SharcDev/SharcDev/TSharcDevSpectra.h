@@ -22,38 +22,49 @@
  *                                                                           *
  *****************************************************************************/
 
+// class header 
+#include "NPOptionManager.h"
+#include "NPGlobalSystemOfUnits.h"
+#include "NPPhysicalConstants.h"
+
 // NPLib headers
 #include "NPVSpectra.h"
 #include "TSharcDevData.h"
 #include "TSharcDevPhysics.h"
+
+// STL
+#include <stdexcept>
+#include <iostream> 
+#include <cstdlib> 
+#include <string>
+
+// NPTool header
+#include "NPOptionManager.h"
 
 // Forward Declaration
 class TSharcDevPhysics;
 
 
 class TSharcDevSpectra : public VSpectra {
-  //////////////////////////////////////////////////////////////
+  
   // constructor and destructor
   public:
     TSharcDevSpectra();
     TSharcDevSpectra(unsigned int NumberOfDetectors);
     ~TSharcDevSpectra();
 
-  //////////////////////////////////////////////////////////////
   // Initialization methods
   private:
     void InitRawSpectra();
     void InitPreTreatedSpectra();
     void InitPhysicsSpectra();
 
-  //////////////////////////////////////////////////////////////
   // Filling methods
   public:
     void FillRawSpectra(TSharcDevData*);
     void FillPreTreatedSpectra(TSharcDevData*);
     void FillPhysicsSpectra(TSharcDevPhysics*);
 
-  //////////////////////////////////////////////////////////////
   // Detector parameters 
   private:
     unsigned int fNumberOfDetector;
@@ -61,5 +72,4 @@ class TSharcDevSpectra : public VSpectra {
     unsigned int fStripBack;
     unsigned int fPad;
 };
-
 #endif

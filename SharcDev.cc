@@ -65,6 +65,7 @@ using namespace CLHEP;
 
 SharcDev::SharcDev() {
 	InitializeMaterial();
+
   	m_Event = new TSharcDevData();
   	
 	// Dark Grey
@@ -116,55 +117,54 @@ void SharcDev::ReadConfiguration(NPL::InputParser parser) {
 		
 	vector<string> tokenQQQ = {"Z", "R", "Phi", "ThicknessDetector"};
 	vector<string> tokenBOX = {"Z",
-                             "ThicknessDetector1",
-                             "ThicknessDetector2",
-                             "ThicknessDetector3",
-                             "ThicknessDetector4",
-                             "ThicknessPAD1",
-                             "ThicknessPAD2",
-                             "ThicknessPAD3",
-                             "ThicknessPAD4"};
+								"ThicknessDetector1",
+								"ThicknessDetector2",
+								"ThicknessDetector3",
+								"ThicknessDetector4",
+								"ThicknessPAD1",
+								"ThicknessPAD2",
+								"ThicknessPAD3",
+								"ThicknessPAD4"};
                              
 	for (unsigned int i = 0; i < blocks.size(); i++) {
 	
 		if (blocks[i]->GetMainValue() == "QQQ" && blocks[i]->HasTokenList(tokenQQQ)) {
 			if (NPOptionManager::getInstance()->GetVerboseLevel())
 			cout << endl << "////  SharcDev QQQ " << i + 1 << endl;
-	      		double Z = blocks[i]->GetDouble("Z", "mm");
-	      		double R = blocks[i]->GetDouble("R", "mm");
-	      		double Phi = blocks[i]->GetDouble("Phi", "deg");
-	      		double Thickness = blocks[i]->GetDouble("ThicknessDetector", "micrometer");
-	      		AddQQQDetector(G4ThreeVector(R, Phi, Z), Thickness);
-	    	}
-	    	else if (blocks[i]->GetMainValue() == "BOX" && blocks[i]->HasTokenList(tokenBOX)) {
-	      		if (NPOptionManager::getInstance()->GetVerboseLevel())
-				cout << endl << "////  SharcDev Box " << i + 1 << endl;
-				double Z = blocks[i]->GetDouble("Z", "mm");
-				double Thickness1 = blocks[i]->GetDouble("ThicknessDetector1", "micrometer");
-				double Thickness2 = blocks[i]->GetDouble("ThicknessDetector2", "micrometer");
-				double Thickness3 = blocks[i]->GetDouble("ThicknessDetector3", "micrometer");
-				double Thickness4 = blocks[i]->GetDouble("ThicknessDetector4", "micrometer");
-				double ThicknessPAD1 = blocks[i]->GetDouble("ThicknessPAD1", "micrometer");
-				double ThicknessPAD2 = blocks[i]->GetDouble("ThicknessPAD2", "micrometer");
-				double ThicknessPAD3 = blocks[i]->GetDouble("ThicknessPAD3", "micrometer");
-				double ThicknessPAD4 = blocks[i]->GetDouble("ThicknessPAD4", "micrometer");
-	      		AddBoxDetector(Z, Thickness1, Thickness2, Thickness3, Thickness4, ThicknessPAD1, ThicknessPAD2, ThicknessPAD3, ThicknessPAD4);
-	    	}
-	    	else {
-	      		cout << "Warning: check your input file formatting " << endl;
-	    	}
+			double Z = blocks[i]->GetDouble("Z", "mm");
+			double R = blocks[i]->GetDouble("R", "mm");
+			double Phi = blocks[i]->GetDouble("Phi", "deg");
+			double Thickness = blocks[i]->GetDouble("ThicknessDetector", "micrometer");
+			AddQQQDetector(G4ThreeVector(R, Phi, Z), Thickness);
+	    }
+		else if (blocks[i]->GetMainValue() == "BOX" && blocks[i]->HasTokenList(tokenBOX)) {
+			if (NPOptionManager::getInstance()->GetVerboseLevel())
+			cout << endl << "////  SharcDev Box " << i + 1 << endl;
+			double Z = blocks[i]->GetDouble("Z", "mm");
+			double Thickness1 = blocks[i]->GetDouble("ThicknessDetector1", "micrometer");
+			double Thickness2 = blocks[i]->GetDouble("ThicknessDetector2", "micrometer");
+			double Thickness3 = blocks[i]->GetDouble("ThicknessDetector3", "micrometer");
+			double Thickness4 = blocks[i]->GetDouble("ThicknessDetector4", "micrometer");
+			double ThicknessPAD1 = blocks[i]->GetDouble("ThicknessPAD1", "micrometer");
+			double ThicknessPAD2 = blocks[i]->GetDouble("ThicknessPAD2", "micrometer");
+			double ThicknessPAD3 = blocks[i]->GetDouble("ThicknessPAD3", "micrometer");
+			double ThicknessPAD4 = blocks[i]->GetDouble("ThicknessPAD4", "micrometer");
+			AddBoxDetector(Z, Thickness1, Thickness2, Thickness3, Thickness4, ThicknessPAD1, ThicknessPAD2, ThicknessPAD3, ThicknessPAD4);
+		}
+	    else {
+	      	cout << "Warning: check your input file formatting " << endl;
+	    }
   	}
 }
 
 // Construct detector and inialise sensitive part.
 // Called After DetecorConstruction::AddDetector Method
 void SharcDev::ConstructDetector(G4LogicalVolume* world) {
-	ConstructBOXDetector(world);
-	ConstructQQQDetector(world);
-	ConstructTargetFan(world);
+	ConstructBOXDetector(world); // this is the box bit that goes around the target
+	ConstructQQQDetector(world); // this is the round bit at the front and back of the boxes
+	ConstructTargetFan(world); // this is the big white thing that holds the target
 }
 
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 void SharcDev::ConstructTargetFan(G4LogicalVolume* world) {
 	G4double FanBase_OutterRadius = 8 * mm;
 	G4double FanBase_InnerRadius = 4 * mm;
@@ -180,16 +180,12 @@ void SharcDev::ConstructTargetFan(G4LogicalVolume* world) {
 	// TargetFrame_Thickness= 0.5*mm;
 	G4double Fan_Shift = 70 * mm + 16 * mm;
 
+	// This is the white bit that holds the target
 	G4Tubs* FanBaseSolid = new G4Tubs("TargetFanBase", FanBase_InnerRadius, FanBase_OutterRadius, FanBase_Thickness * 0.5, 0., M_PI * 2);
-
   	G4Tubs* FanPlateWholeSolid = new G4Tubs("TargetFanPlate", FanPlate_InnerRadius, FanPlate_OutterRadius, FanPlate_Thickness * 0.5, 0 * deg, 60 * deg);
-
   	G4Tubs* FanPlateHoleSolid = new G4Tubs("TargetFanPlateHole", FanPlateHole_InnerRadius, FanPlateHole_OutterRadius, FanPlate_Thickness, 0 * deg, 60 * deg);
-
   	G4SubtractionSolid* FanPlateSolid = new G4SubtractionSolid("TargetFanSolid", FanPlateWholeSolid, FanPlateHoleSolid, new G4RotationMatrix(), G4ThreeVector(8 * mm * sin(60 * deg), 8 * mm * cos(60 * deg), 0));
-
 	G4UnionSolid* TargetFanSolid = new G4UnionSolid("TargetFanSolid", FanPlateSolid, FanBaseSolid, new G4RotationMatrix(), G4ThreeVector(16 * mm * sin(60 * deg), 16 * mm * cos(60 * deg), FanPlate_Thickness));
-
   	G4LogicalVolume* TargetFan = new G4LogicalVolume(TargetFanSolid, m_MaterialVacuum, "TargetFan", 0, 0, 0);
 
   	G4RotationMatrix* Rot = new G4RotationMatrix();
@@ -209,11 +205,8 @@ void SharcDev::ConstructBOXDetector(G4LogicalVolume* world) {
 			// create the Box DSSD
 			// Make the a single detector geometry
 			G4Box* PCBFull = new G4Box("PCBFull", BOX_PCB_Length / 2., BOX_PCB_Width / 2., BOX_PCB_Thickness / 2.);
-
 			G4Box* WaferShape = new G4Box("WaferShape", BOX_Wafer_Length / 2., BOX_Wafer_Width / 2., BOX_PCB_Thickness / 2. + 0.1 * mm);
-
 			G4Box* Wafer = new G4Box("Wafer", BOX_Wafer_Length / 2., BOX_Wafer_Width / 2., m_ThicknessBOX[i][j] / 2.);
-
 			G4Box* ActiveWafer = new G4Box("ActiveWafer", BOX_ActiveWafer_Length / 2., BOX_ActiveWafer_Width / 2., m_ThicknessBOX[i][j] / 2.);
 
 			G4double BOX_PCB_Slot_Width;
@@ -278,17 +271,13 @@ void SharcDev::ConstructBOXDetector(G4LogicalVolume* world) {
 			G4LogicalVolume* logicPADDetector = NULL;
 
 			G4ThreeVector PAD_Wafer_Offset = G4ThreeVector(PAD_Wafer_Length_Offset, PAD_Wafer_Width_Offset, 0);
+
       		if (m_ThicknessPAD[i][j] > 0) {
         		G4Box* PADDetector = new G4Box("PADDetector", PAD_PCB_Length / 2., PAD_PCB_Width / 2., PAD_PCB_Thickness / 2.);
-
         		G4Box* PADPCBFull = new G4Box("PCBFull", PAD_PCB_Length / 2., PAD_PCB_Width / 2., PAD_PCB_Thickness / 2.);
-
         		G4Box* PADWaferShape = new G4Box("PADWaferShape", PAD_Wafer_Length / 2., PAD_Wafer_Width / 2., PAD_PCB_Thickness / 2. + 0.1 * mm);
-
         		G4Box* PADWafer = new G4Box("PADWafer", PAD_Wafer_Length / 2., PAD_Wafer_Width / 2., m_ThicknessPAD[i][j] / 2.);
-
         		G4Box* PADActiveWafer = new G4Box("PADActiveWafer", PAD_ActiveWafer_Length / 2., PAD_ActiveWafer_Width / 2., m_ThicknessPAD[i][j] / 2.);
-
         		G4SubtractionSolid* PADPCB = new G4SubtractionSolid("PADPCB", PADPCBFull, PADWaferShape, new G4RotationMatrix, PAD_Wafer_Offset);
 
 				// Master Volume
@@ -311,12 +300,10 @@ void SharcDev::ConstructBOXDetector(G4LogicalVolume* world) {
 
         		// Place the sub volume in the master volume
         		new G4PVPlacement(new G4RotationMatrix(0, 0, 0), G4ThreeVector(0, 0, 0), logicPADPCB, "PAD_PCB", logicPADDetector, false, DetNbr);
-
         		new G4PVPlacement(new G4RotationMatrix(0, 0, 0), PAD_Wafer_Offset - G4ThreeVector(0, 0, 0.5 * PAD_PCB_Thickness - 0.5 * m_ThicknessPAD[i][j]), logicPADWafer, "PAD_Wafer", logicPADDetector, false, DetNbr);
-
         		new G4PVPlacement(new G4RotationMatrix(0, 0, 0), G4ThreeVector(0, 0, 0), logicPADActiveWafer, "PAD_ActiveWafer", logicPADWafer, false, DetNbr);
       		}
-			///////////////////////////////////////////////////////////////////////////////////
+			
 			// Place the detector in the world
 			// Position of the center of the PCB
 
@@ -405,13 +392,9 @@ void SharcDev::ConstructQQQDetector(G4LogicalVolume* world) {
 		DetNbr = i + 1 + 8;
 		// Make the a single detector geometry
 		G4Tubs* QQQDetector = new G4Tubs("QQQDetector", QQQ_PCB_Inner_Radius, QQQ_PCB_Outer_Radius, QQQ_PCB_Thickness * 0.5, 0., M_PI / 2.);
-
 		G4Tubs* PCBFull = new G4Tubs("PCBFull", QQQ_PCB_Inner_Radius, QQQ_PCB_Outer_Radius, QQQ_PCB_Thickness * 0.5, 0., M_PI * 0.5);
-
 		G4Tubs* WaferShape = new G4Tubs("WaferShape", QQQ_Wafer_Inner_Radius, QQQ_Wafer_Outer_Radius, QQQ_PCB_Thickness * 0.5 + 0.1 * mm, QQQ_Wafer_Starting_Phi, QQQ_Wafer_Stopping_Phi);
-
 		G4Tubs* Wafer = new G4Tubs("Wafer", QQQ_Wafer_Inner_Radius, QQQ_Wafer_Outer_Radius, m_ThicknessQQQ[i] * 0.5, QQQ_Wafer_Starting_Phi, QQQ_Wafer_Stopping_Phi);
-
 		G4SubtractionSolid* PCB = new G4SubtractionSolid("PCB", PCBFull, WaferShape, new G4RotationMatrix, G4ThreeVector(0, 0, 0));
 
 		// Master Volume
@@ -420,20 +403,16 @@ void SharcDev::ConstructQQQDetector(G4LogicalVolume* world) {
 		// Sub Volume PCB
 		G4LogicalVolume* logicPCB = new G4LogicalVolume(PCB, m_MaterialPCB, "logicPCB", 0, 0, 0);
 		logicPCB->SetVisAttributes(PCBVisAtt);
-
 		// Sub Volume Wafer
 		G4LogicalVolume* logicWafer = new G4LogicalVolume(Wafer, m_MaterialSilicon, "logicWafer", 0, 0, 0);
 		logicWafer->SetVisAttributes(SiliconVisAtt);
-
 		logicWafer->SetSensitiveDetector(m_QQQScorer);
 
 		// Place the sub volume in the master volume
 		new G4PVPlacement(new G4RotationMatrix(0, 0, 0), G4ThreeVector(0, 0, 0), logicPCB, "QQQ_PCB", logicQQQDetector, false, DetNbr);
-
 		new G4PVPlacement(new G4RotationMatrix(0, 0, 0), G4ThreeVector(0, 0, 0), logicWafer, "QQQ_Wafer", logicQQQDetector, false, DetNbr);
 
 		// Place the masters volume in the world
-
 		new G4PVPlacement(new G4RotationMatrix(0, 0, m_Pos[i].y()), G4ThreeVector(0, 0, m_Pos[i].z()), logicQQQDetector, "QQQ", world, false, DetNbr);
 	}
 }
@@ -489,7 +468,7 @@ void SharcDev::ReadSensitive(const G4Event*) {
   	}
   	// clear map for next event
   	BOXScorer->clear();
-  	///////////
+  
   	// PAD
   	DSSDScorers::PS_Rectangle* PADScorer = (DSSDScorers::PS_Rectangle*)m_PADScorer->GetPrimitive(0);
 
@@ -507,7 +486,6 @@ void SharcDev::ReadSensitive(const G4Event*) {
   	// clear map for next event
   	PADScorer->clear();
 
-  	///////////
   	// QQQ
   	DSSDScorers::PS_Annular* QQQScorer = (DSSDScorers::PS_Annular*)m_QQQScorer->GetPrimitive(0);
 
@@ -538,7 +516,6 @@ void SharcDev::ReadSensitive(const G4Event*) {
   	QQQScorer->clear();
 }
 
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 void SharcDev::InitializeScorers() {
   	//   Silicon Associate Scorer
   	bool already_exist = false;
@@ -550,13 +527,9 @@ void SharcDev::InitializeScorers() {
 		return;
 
   	G4VPrimitiveScorer* BOXScorer = new DSSDScorers::PS_Rectangle("SharcDevBOX", 0, BOX_ActiveWafer_Length, BOX_ActiveWafer_Width, BOX_Wafer_Front_NumberOfStrip, BOX_Wafer_Back_NumberOfStrip);
-
   	G4VPrimitiveScorer* PADScorer = new DSSDScorers::PS_Rectangle("SharcDevPAD", 0, PAD_Wafer_Length, PAD_Wafer_Width, 1, 0);
-
   	G4VPrimitiveScorer* QQQScorer = new DSSDScorers::PS_Annular("SharcDevQQQ", 0, QQQ_Wafer_Inner_Radius, QQQ_Wafer_Outer_Radius, QQQ_Wafer_Starting_Phi, QQQ_Wafer_Stopping_Phi, QQQ_Wafer_NumberOf_AnnularStrip, QQQ_Wafer_NumberOf_RadialStrip, 1);
-
   	G4VPrimitiveScorer* InterScorerBOX = new InteractionScorers::PS_Interactions("SharcDevBOXInteractionScorer", ms_InterCoord, 0);
-
   	G4VPrimitiveScorer* InterScorerQQQ = new InteractionScorers::PS_Interactions("SharcDevQQQInteractionScorer", ms_InterCoord, 0);
 
 	// and register it to the multifunctionnal detector
