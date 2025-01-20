@@ -1,0 +1,4 @@
+[ libNPbasicScintillator.so ]
+# List of selected classes
+class TbasicScintillatorPhysics
+header TbasicScintillatorPhysics.h

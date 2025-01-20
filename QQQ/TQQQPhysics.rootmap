@@ -1,0 +1,4 @@
+[ libNPQQQ.so ]
+# List of selected classes
+class TQQQPhysics
+header TQQQPhysics.h
