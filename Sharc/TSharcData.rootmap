@@ -1,0 +1,4 @@
+[ libNPSharc.so ]
+# List of selected classes
+class TSharcData
+header TSharcData.h
