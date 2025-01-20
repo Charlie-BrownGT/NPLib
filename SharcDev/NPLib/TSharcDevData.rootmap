@@ -1,4 +1,0 @@
-[ libNPSharcDev.so ]
-# List of selected classes
-class TSharcDevData
-header TSharcDevData.h
